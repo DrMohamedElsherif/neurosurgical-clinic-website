@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book an Appointment - Neurosurgery Center</title>
+    <style>
+        /* Overall styling */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        h1 {
+            text-align: center;
+            color: #007acc;
+        }
+
+        /* Form container styling */
+        form {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            max-width: 500px;
+            width: 100%;
+            margin: 20px;
+        }
+
+        label {
+            font-weight: bold;
+            color: #444;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        input[type="date"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            background-color: #f9f9f9;
+        }
+
+        /* Textarea styling */
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        /* Submit button styling */
+        input[type="submit"] {
+            background-color: #007acc;
+            color: #fff;
+            border: none;
+            padding: 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+            transition: background-color 0.3s ease;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #005fa3;
+        }
+
+        /* Additional styling for div containers */
+        #pregnancy_lactation_div,
+        #allergy_details_div {
+            margin-bottom: 20px;
+        }
+
+        /* Back to Home link styling */
+        .back-home {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .back-home a {
+            color: #007acc;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        .back-home a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Back to Home link -->
+    <div class="back-home">
+        <a href="index.html">← Back to Home</a>
+    </div>
+
+    <form action="https://www.eberle-zentrum.uni-tuebingen.de/lehre/inf20w/formular.php" method="POST">
+        <label for="name">Full Name:</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="gender">Gender:</label>
+        <select id="gender" name="gender" required>
+            <option value="">Select Gender</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+        </select>
+
+        <div id="pregnancy_lactation_div" style="display: none;">
+            <label for="pregnancy_lactation">Pregnant/Lactating:</label>
+            <select id="pregnancy_lactation" name="pregnancy_lactation">
+                <option value="">Select</option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+            </select>
+        </div>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="phone">Phone Number:</label>
+        <input type="tel" id="phone" name="phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="Format: 123-456-7890" required>
+
+        <label for="emergency_contact">Emergency Contact:</label>
+        <input type="text" id="emergency_contact" name="emergency_contact">
+
+        <label for="appointment_date">Preferred Appointment Date:</label>
+        <input type="date" id="appointment_date" name="appointment_date" required>
+
+        <label for="reason">Reason for Visit:</label>
+        <textarea id="reason" name="reason" rows="4" cols="50" required></textarea>
+
+        <label for="doctor">Preferred Doctor:</label>
+        <select id="doctor" name="doctor" required>
+            <option value="">Select a Doctor</option>
+            <option value="Dr. Mohamed Elsherif">Dr. Mohamed Elsherif</option>
+            <option value="Dr. Martin Raden">Dr. Martin Raden</option>
+            <option value="Dr. Michael Derntl">Dr. Michael Derntl</option>
+        </select>
+
+        <label for="allergies">Allergies:</label>
+        <select id="allergies" name="allergies" onchange="showAllergyDetails(this)">
+            <option value="">Select</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+        </select>
+
+        <div id="allergy_details_div" style="display: none;">
+            <label for="allergy_details">Allergy Details:</label>
+            <textarea id="allergy_details" name="allergy_details" rows="4" cols="50"></textarea>
+        </div>
+
+        <label for="insurance">Insurance Provider:</label>
+        <input type="text" id="insurance" name="insurance">
+
+        <label for="notes">Additional Notes:</label>
+        <textarea id="notes" name="notes" rows="4" cols="50"></textarea>
+
+        <input type="submit" value="Book Appointment">
+    </form>
+
+    <script>
+        function showAllergyDetails(select) {
+            var allergyDetailsDiv = document.getElementById("allergy_details_div");
+            if (select.value === "Yes") {
+                allergyDetailsDiv.style.display = "block";
+            } else {
+                allergyDetailsDiv.style.display = "none";
+            }
+        }
+
+        function showPregnancyLactation(select) {
+            var pregnancyLactationDiv = document.getElementById("pregnancy_lactation_div");
+            if (select.value === "Female") {
+                pregnancyLactationDiv.style.display = "block";
+            } else {
+                pregnancyLactationDiv.style.display = "none";
+            }
+        }
+
+        document.getElementById("gender").addEventListener("change", function () {
+            showPregnancyLactation(this);
+        });
+    </script>
+</body>
+
+</html>
